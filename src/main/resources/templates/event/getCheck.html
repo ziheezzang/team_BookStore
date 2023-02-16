@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<html>
+<head>
+<meta charset="utf-8">
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<link href='fullcalendar/lib/main.css' rel="stylesheet"/>
+	<script src='fullcalendar/lib/main.js'></script>
+	<script src='fullcalendar/lib/calendar.js'></script>
+	<script src='fullcalendar/lib/locales/ko.js'></script>
+	<script src='../packages/interaction/main.js'></script>
+	<script src='https://fullcalendar.io/releases/fullcalendar/lib/moment.min.js'></script>
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/fullcalendar.min.css'rel='stylesheet'/>
+	<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print'/>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/fullcalendar.min.js'></script>
+	<link rel="shortcut icon" href="css/images/favicon.ico" sizes="16x16" />
+	<link rel="stylesheet" href="/css/event.css" >
+
+
+<script>
+    //Fullcalendar 호출 메서드 
+      document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+         customButtons: { 
+             CheckButton: {
+	   	          text: '출석체크하기',
+	   	          id: 'check',
+	   	          click: function() {	
+	   	        	$("#calendar").modal("show");
+	   	        	
+	   	        
+	                       // ajax 통신으로 출석 정보 저장하기 
+	                       // 통신 성공시 버튼 바꾸고, property disabled 만들기 
+	   	       		    }
+	   	        }
+   	    },
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'CheckButton'
+          },
+        	editable: false, //true로 변경시 드래그 이동 가능 ! 
+        	events: [
+        		{
+        			title: '♡출석♡',
+        			start: '2023-02-01'
+        		},
+        		{
+        			title: '♡출석♡',
+        			start: '2023-02-13'
+        		}
+        	],
+        	header: {
+        		center: 'title'
+        	},
+          initialView: 'dayGridMonth',
+          locale:'ko'
+        });
+        calendar.render();
+      }); 
+
+</script>
+
+
+    <title>EventCalendar</title>
+  </head>
+  <body>
+  
+  
+  <header>
+    <div class="shell">
+      <h1 id="logo"><a href="index.html">Busymode</a></h1>
+      <nav id="navigation">
+        <ul>
+          <li class="active"> 
+          	  <a th:href="login.html">로그인</a></li>
+          <li><a th:href="signUp.html">회원가입</a></li>
+          <li><a href="#">마이페이지</a></li>
+          <li><a href="getReviewList">베스트</a></li>
+          <li><a th:href="getReviewList">신상품</a></li>
+          <li><a href="getCheck">이벤트</a></li>
+           <li><a th:href="getQnaList">고객센터</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+ <br><br>
+ 
+	<div class="test">
+	 	<div class="tin">
+	 		EVENT
+	 	</div>
+ 	</div>
+  <div class="container calendar-container"> 
+  		<div id="calendar" style="max-width:900px; margin:40px auto;"></div>
+  </div>
+  </body>
+</html>
