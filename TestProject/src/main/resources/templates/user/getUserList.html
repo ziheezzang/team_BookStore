@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>고객 관리</title>
+<style>
+table.type09 {
+	border-collapse: collapse;
+	text-align: center;
+	line-height: 1.5;
+}
+
+table.type09 thead th {
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #369;
+	border-bottom: 3px solid #036;
+}
+
+table.type09 tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+
+table.type09 td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+ul {
+	text-align: center;
+	margin-top: 20px;
+}
+
+ul li {
+	list-style-type: none;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+div {
+	text-align: center;
+}
+
+a:hover, a:focus {
+	color: highlight;
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+input {
+	border: 1px solid gray;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+}
+
+input:hover {
+	background-color: silver;
+}
+</style>
+</head>
+
+<body>
+	<hr>
+	<br>
+	<br>
+	<div>
+		<a style="font-size: x-large;" th:href="@{/}">관리자 페이지</a>
+	</div>
+	<br>
+	<h4 align="center">고객 관리 게시판</h4>
+	<div>
+		<span
+			data-th-text="|Today : ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}|"></span>
+		<p>role = 1 : 관리자 / role = 2 : 고객 / role = 3 : 휴면회원(리스트에서 삭제)</p>
+	</div>
+	<table th:align="center" class="type09" th:width="700">
+		<thead>
+			<tr>
+				<th>no</th>
+				<th>user_id</th>
+				<th>name</th>
+				<th>passowrd</th>
+				<th>point</th>
+				<th>role</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="users, state : ${userList}" th:if="${users.role}!=3">
+				<td th:text="${users.name}" th:align="center">
+				<td><div>
+						<a th:href="@{/user/getUser(user_id=${users.user_id})}"
+							th:text="${users.user_id}"></a>
+					</div>
+				<td th:text="${users.name}" th:align="center">
+				<td th:text="${users.password}" th:align="center">
+				<td th:text="${users.point}" th:align="center">
+				<td th:text="${users.role}" th:align="center">
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<div class="pagination">
+		<ul>
+			<li th:each="page :${#numbers.sequence(0, totalPage -1)}"><a
+				th:href="@{/user/getUserList(page=${pageStat.index})}"
+				th:text="${pageStat.index + 1}"></a></li>
+		</ul>
+	</div>
+</body>
+</html>

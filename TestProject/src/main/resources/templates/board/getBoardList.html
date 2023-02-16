@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 관리</title>
+<style>
+table.type09 {
+	border-collapse: collapse;
+	text-align: center;
+	line-height: 1.5;
+}
+
+table.type09 thead th {
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #369;
+	border-bottom: 3px solid #036;
+}
+
+table.type09 tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+
+table.type09 td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+ul {
+	text-align: center;
+	margin-top: 20px;
+}
+
+ul li {
+	list-style-type: none;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+div {
+	text-align: center;
+}
+
+a:hover, a:focus {
+	color: highlight;
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+</style>
+</head>
+<body>
+	<hr>
+	<br>
+	<br>
+	<div>
+		<a style="font-size: x-large;" th:href="@{/}">관리자 페이지</a>
+	</div>
+	<br>
+	<h4 align="center">상품 관리 게시판</h4>
+	<div>
+		<span
+			data-th-text="|Today : ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}|"></span>
+		<p>type = 1 : 국내 / type = 2 : 해외 / type = 3 : 삭제</p>
+	</div>
+	<table class="type09" th:align="center" th:width="700">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>type</th>
+				<th>title</th>
+				<th>author</th>
+				<th>publisher</th>
+				<th>register_date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="board, state : ${boardList}" th:if="${board.type}!=3">
+				<td th:text="${board.id}" th:align="center">
+				<td th:text="${board.type}" th:align="center">
+				<td><div>
+						<a th:href="@{/board/getBoard(id=${board.id})}"
+							th:text="${board.title}"></a>
+					</div></td>
+				<td th:text="${board.author}" th:align="center">
+				<td th:text="${board.publisher}" th:align="center">
+				<td th:text="${#dates.format(board.register_date, 'yyyy-MM-dd')}"
+					th:align="center">
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<div>
+		<a th:href="@{/board/insertBoard}">상품 등록</a>
+	</div>
+	<div class="pagination">
+		<ul>
+			<li th:each="page :${#numbers.sequence(0, totalPage -1)}"><a
+				th:href="@{/board/getBoardList(page=${pageStat.index})}"
+				th:text="${pageStat.index + 1}"></a></li>
+		</ul>
+	</div>
+</body>
+</html>

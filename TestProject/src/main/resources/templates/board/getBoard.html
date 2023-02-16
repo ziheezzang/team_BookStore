@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 상세</title>
+<style>
+input {
+	border: 1px solid gray;
+	border-radius: 2px;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+button {
+	border: 1px solid gray;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+}
+
+input:hover {
+	background-color: silver;
+}
+
+button:hover {
+	background-color: silver;
+}
+
+div {
+	display: flex;
+	justify-content: center;
+}
+</style>
+</head>
+<body>
+	<hr>
+	<h4 align="center">상품 상세</h4>
+	<hr>
+	<br>
+	<div>
+		<img th:src="|/images/${board.image}|" alt="상품이미지" width="150px"
+			height="200px" style="border-style: solid; border-width: thin;">
+	</div>
+	<br>
+	<form th:action="@{/board/updateBoard}" method="post"
+		enctype="multipart/form-data">
+		<table th:align="center" th:cellpadding="7" th:width="500">
+			<tr>
+				<td th:text="title" width="80"></td>
+				<td><input name="id" type="hidden" th:value="${board.id}">
+					<input name="title" type="text" th:value="${board.title}"></td>
+			</tr>
+			<tr>
+				<td th:text="type"></td>
+				<td><input name="type" type="text" th:value="${board.type}"></td>
+			</tr>
+			<tr>
+				<td th:text="price"></td>
+				<td><input name="price" type="text" th:value="${board.price}"></td>
+			</tr>
+			<tr>
+				<td th:text="author"></td>
+				<td><input name="author" type="text" th:value="${board.author}"></td>
+			</tr>
+			<tr>
+				<td th:text="publisher"></td>
+				<td><input name="publisher" type="text"
+					th:value="${board.publisher}"></td>
+			</tr>
+			<tr>
+				<td th:text="content"></td>
+				<td><textarea name="content" th:text="${board.content}"
+						th:align="center" cols="55" rows="20"></textarea></td>
+			</tr>
+			<tr>
+				<td th:text="register_date"></td>
+				<td th:text="${#dates.format(board.register_date, 'yyyy-MM-dd')}"
+					th:align="center"></td>
+			</tr>
+			<tr>
+				<td th:text="purchase"></td>
+				<td><input name="purchase" type="text"
+					th:value="${board.purchase}"></td>
+			</tr>
+			<tr>
+				<td th:text="quantity"></td>
+				<td><input name="quantity" type="text"
+					th:value="${board.quantity}"></td>
+			</tr>
+			<tr>
+				<td th:text="per_point"></td>
+				<td><input name="per_point" type="text"
+					th:value="${board.per_point}"></td>
+			</tr>
+			<tr>
+				<td th:text="image"></td>
+				<td><input name="image" type="text" th:value="${board.image}"></td>
+			<tr>
+			<tr>
+
+				<td colspan="2" align="center"><input type="submit"
+					value="수정하기">
+			</tr>
+
+		</table>
+	</form>
+	<br>
+
+</body>
+</html>

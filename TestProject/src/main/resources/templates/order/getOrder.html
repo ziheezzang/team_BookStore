@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문 상세</title>
+<style>
+ul {
+	text-align: center;
+	margin-top: 20px;
+}
+
+ul li {
+	list-style-type: none;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+div {
+	display: flex;
+	justify-content: center;
+}
+
+a:hover, a:focus {
+	color: highlight;
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+input {
+	border: 1px solid gray;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+}
+
+input:hover {
+	background-color: silver;
+}
+
+button {
+	border: 1px solid gray;
+}
+
+input:hover {
+	background-color: silver;
+}
+
+button:hover {
+	background-color: silver;
+}
+</style>
+</head>
+<body>
+	<h4 align="center">주문 상세</h4>
+	<div>
+		<span
+			data-th-text="|Today : ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}|"></span>
+	</div>
+	<br>
+	<form th:action="@{/order/updateOrder}" method="post">
+		<table th:align="center" th:cellpadding="12" border="1">
+			<tr>
+				<th>주문번호<input name="seq" type="hidden"
+					th:value="${orders.seq}"></th>
+				<td colspan="2" th:text="${orders.seq}"></td>
+			</tr>
+			<tr>
+				<th>주문 수량</th>
+				<td colspan="2" ><input name="quantity" type="text" th:value="${orders.quantity}"></td>
+			</tr>
+			<tr>
+				<th>주문자 id</th>
+				<td colspan="2" th:text="${orders.member.user_id}"></td>
+			</tr>
+
+			<tr>
+				<th>책 번호</th>
+				<td colspan="2" th:text="${orders.board.id}"></td>
+			</tr>
+			<tr>
+				<th>주문 날짜</th>
+				<td colspan="2"
+					th:text="${#dates.format(orders.indate, 'YYYY/MM/DD HH시 MM분')}"></td>
+			</tr>
+			<tr>
+				<th>주문상태</th>
+				<td><select name="result" id="result">
+						<option th:each="list:${orders.result}" th:text="${list}"
+							th:selected="${list}==${orders.result}" />
+						<option th:selected="${orders.result}=='1'"
+							th:if="${orders.result !='1'}">1</option>
+						<option th:selected="${orders.result}=='2'"
+							th:if="${orders.result !='2'}">2</option>
+						<option th:selected="${orders.result}=='3'"
+							th:if="${orders.result !='3'}">3</option>
+				</select></td>
+			<tr>
+				<td colspan="2" align="center"><input type="submit"
+					value="수정하기">
+			</tr>
+		</table>
+	</form>
+	<br>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>주문 관리</title>
+
+<style>
+table.type09 {
+	border-collapse: collapse;
+	text-align: left;
+	line-height: 1.5;
+}
+
+table.type09 thead th {
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #369;
+	border-bottom: 3px solid #036;
+}
+
+table.type09 tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+
+table.type09 td {
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+ul {
+	text-align: center;
+	margin-top: 20px;
+}
+
+ul li {
+	list-style-type: none;
+	display: inline-block;
+	margin-right: 10px;
+}
+
+div {
+	text-align: center;
+}
+
+a:hover, a:focus {
+	color: highlight;
+	text-decoration: underline;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+</style>
+</head>
+<body>
+	<hr>
+	<br>
+	<br>
+	<div>
+		<a style="font-size: x-large;" th:href="@{/}">관리자 페이지</a>
+	</div>
+	<br>
+	<h4 align="center">주문 관리 게시판</h4>
+	<div>
+		<span
+			data-th-text="|Today : ${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}|"></span>
+	</div>
+	<br>
+	<table class="type09" th:align="center" th:width="900">
+		<thead>
+			<tr>
+				<th>no</th>
+				<th>seq</th>
+				<th>id</th>
+				<th>user_id</th>
+				<th>quantity</th>
+				<th>indate</th>
+				<th>result</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="orders, state : ${orderList}">
+				<td th:text="${state.count}" th:align="center">
+				<td th:text="${orders.seq}" th:align="center">
+				<td th:text="${orders.board.id}" th:align="center">
+				<td th:text="${orders.member.user_id}" th:align="center">
+				<td th:text="${orders.quantity}" th:align="center">
+				<td th:text="${#dates.format(orders.indate, 'yyyy-MM-dd')}"
+					th:align="center">
+				<td th:text="${orders.result}" th:align="center">
+				<td><div>
+						<a th:href="@{/order/getOrder(seq=${orders.seq})}" th:text="변경하기"></a>
+					</div></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="pagination">
+		<ul>
+			<li th:each="page :${#numbers.sequence(0, totalPage -1)}"><a
+				th:href="@{/order/getOrderList(page=${pageStat.index})}"
+				th:text="${pageStat.index + 1}"></a></li>
+		</ul>
+	</div>
+</body>
+</html>
